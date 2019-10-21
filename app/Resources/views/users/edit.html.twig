@@ -4,7 +4,7 @@
     <a href="{{ url('users_list') }}">List</a>
 
     <form action="{{ url('users_edit',{id:user.id}) }}" method="post" enctype="multipart/form-data">
-        <input name="id" value="{{ user.id }}">
+        <input type="hidden" name="id" value="{{ user.id }}">
         Name : <input name="name" value="{{ user.name }}"><br>
         Username :<input name="username" value="{{ user.username }}"><br>
         Role : <select name="role">
