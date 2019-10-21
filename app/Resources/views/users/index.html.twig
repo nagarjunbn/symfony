@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ url('users_add') }}">Add</a>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <p class="flash-{{ label }}">{{ message }}</p>
+        {% endfor %}
+    {% endfor %}
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.role.name }}</td>
+            <td><a href="{{ url('users_edit',{id:user.id}) }}">Edit</a> | <a href="{{ url('users_delete',{id:user.id}) }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}

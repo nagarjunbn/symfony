@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ url('users_list') }}">List</a>
+
+    <form action="{{ url('users_edit',{id:user.id}) }}" method="post" enctype="multipart/form-data">
+        <input name="id" value="{{ user.id }}">
+        Name : <input name="name" value="{{ user.name }}"><br>
+        Username :<input name="username" value="{{ user.username }}"><br>
+        Role : <select name="role">
+            <option value="">Select Role</option>
+            {% for role in roles %}
+            <option value="{{ role.id }}" {{ user.role.id == role.id ? 'selected' : ''}}>{{ role.name }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
