@@ -6,7 +6,9 @@ use AppBundle\Entity\Users;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Validation;
 
 class UsersController extends Controller
 {
@@ -16,6 +18,8 @@ class UsersController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $tokenStorage = $this->get('security.token_storage');
+        $loggedInUser = $tokenStorage->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('AppBundle:Users')->findAll();
         // replace this example code with whatever you need
@@ -35,6 +39,19 @@ class UsersController extends Controller
         if ($request->getMethod() == "POST") {
             $data = $request->request->all();
             $userObj = new Users();
+//            $validator = Validation::createValidator();
+//            $violations = $validator->validate($data['name'], array(
+//                new Length(array('min' => 10)),
+//                new NotBlank(),
+//            ));
+//            if (0 !== count($violations)) {
+//                // there are errors, now you can show them
+//                foreach ($violations as $violation) {
+//                    echo $violation->getMessage().'<br>';
+//                }
+//                dump('herer');
+//                exit;
+//            }
             $role = $em->getRepository('AppBundle:Roles')->findOneBy(array('id' => $data['role']));
             $userObj->setName($data['name']);
             $userObj->setUsername($data['username']);
@@ -42,8 +59,6 @@ class UsersController extends Controller
             $encodedPassword = $encoder->encodePassword($userObj, $data['new_password']);
             $userObj->setPassword($encodedPassword);
             $userObj->setRole($role);
-//            $userObj->setCreatedAt(new \DateTime());
-//            $userObj->setUpdatedAt(new \DateTime());
             $em->persist($userObj);
             $em->flush();
             $this->addFlash("notice", "Addition successful!");

@@ -16,14 +16,14 @@ class Users implements UserInterface
 {
     /**
      * @var string
-     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
 
     /**
      * @var string
-     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="username", type="string", length=255, nullable=false)
      */
     private $username;
@@ -265,6 +265,7 @@ class Users implements UserInterface
     public function getRoles()
     {
         // TODO: Implement getRoles() method.
+        return [$this->role->getName()];
     }
 
     /**

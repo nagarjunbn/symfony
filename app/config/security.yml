@@ -11,6 +11,8 @@ security:
     providers:
         in_memory:
             memory: ~
+        main:
+            entity: { class: AppBundle\Entity\Users, property: username}
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -19,7 +21,16 @@ security:
             security: false
 
         main:
+            provider: main
             anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
+                default_target_path: users_list
+                csrf_token_generator: security.csrf.token_manager
+            logout:
+                path: logout
+                target: login
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
@@ -27,3 +38,7 @@ security:
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/users, roles: [ROLE_ADMIN] }
