@@ -38,3 +38,9 @@ services:
     AppBundle\Service\MessageGenerator:
         arguments:
             $adminEmail: '%admin_email%'
+
+
+    AppBundle\EventSubscriber\LocaleSubscriber:
+        arguments: ['%kernel.default_locale%']
+        # redundant if you're using autoconfigure
+        tags: [kernel.event_subscriber]

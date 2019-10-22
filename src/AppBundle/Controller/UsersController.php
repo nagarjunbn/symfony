@@ -7,6 +7,7 @@ use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Validation;
@@ -157,5 +158,17 @@ class UsersController extends Controller
 
         }
         exit;
+    }
+
+    /**
+     * @Route("/language", name="language_example")
+     */
+    public function language(Request $request) {
+        $request->getSession()->set('_locale', 'en');
+        $translated = $this->get('translator')->trans('text_1');
+        dump($translated);
+        return $this->render('default/translate.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
+        ]);
     }
 }
