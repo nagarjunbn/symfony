@@ -3,12 +3,16 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Users;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Validation;
+
+use AppBundle\Service\MessageGenerator;
+
 
 class UsersController extends Controller
 {
@@ -111,5 +115,19 @@ class UsersController extends Controller
         $em->flush();
         $this->addFlash("notice", "Delete successful!");
         return $this->redirectToRoute('users_list');
+    }
+
+    /**
+     * @Route("/services", name="services_example")
+     */
+    public function logger(LoggerInterface $logger,MessageGenerator $messageGenerator1) {
+        $message1 = $messageGenerator1->getHappyMessage();
+        $logger->info('Look! I just used a service');
+        $logger->warning($message1);
+        $messageGenerator2 = $this->get(MessageGenerator::class);
+        $message2 = $messageGenerator2->getHappyMessage();
+        $logger->notice($message2);
+        echo 'service triggered';
+        exit;
     }
 }
