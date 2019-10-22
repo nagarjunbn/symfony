@@ -7,6 +7,12 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        <p>
+            {{ app.user != null ? app.user.username : ''}}
+            <a href="{{ url('logout') }}" style="{{ app.user != null ? '' : 'display:none;'}}">
+                Logout
+            </a>
+        </p>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
