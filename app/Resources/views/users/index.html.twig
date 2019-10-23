@@ -1,4 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'app.html.twig' %}
+
+{% block title %}{{ parent() }} User List{% endblock %}
 
 {% block body %}
     <a href="{{ url('users_add') }}">Add</a>
