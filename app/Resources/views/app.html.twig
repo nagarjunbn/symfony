@@ -25,7 +25,6 @@
         </li>
     </ul>
 </nav>
-
 <div class="container-fluid">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -38,9 +37,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{ url('users_list') }}">
                             <span data-feather="file"></span>
-                            Orders
+                            User List
                         </a>
                     </li>
                     <li class="nav-item">
@@ -122,7 +121,6 @@
     </div>
 </div>
 <script>
-
     (function () {
         'use strict';
         feather.replace();

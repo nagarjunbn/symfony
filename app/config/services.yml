@@ -44,3 +44,7 @@ services:
         arguments: ['%kernel.default_locale%']
         # redundant if you're using autoconfigure
         tags: [kernel.event_subscriber]
+
+    AppBundle\EventListener\SecurityListener:
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login }
