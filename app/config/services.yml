@@ -39,6 +39,9 @@ services:
         arguments:
             $adminEmail: '%admin_email%'
 
+    role_service:
+        class: AppBundle\Service\RolesService
+#        arguments: ["@service_container"]
 
     AppBundle\EventSubscriber\LocaleSubscriber:
         arguments: ['%kernel.default_locale%']

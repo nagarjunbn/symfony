@@ -68,7 +68,12 @@ class Users implements UserInterface
      */
     private $role;
 
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="xxx", type="string", length=255, nullable=true)
+     */
+    private $xxx;
 
     /**
      * Set name
